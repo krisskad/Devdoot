@@ -18,24 +18,26 @@ def dashboard_page(request):
     anymnos = 1
 
     try:
-        city_id = ExtendedUser.objects.get(user=username).city_id
-        citywise_problems = PublicProblem.objects.filter(city=city_id)
+        detail = ExtendedUser.objects.get(user=username)
+        city_id = detail.city_id
+        jsonDec = json.decoder.JSONDecoder()
+        problems_temp = jsonDec.decode(detail.problem_types)
+        problems_pk = []
+
+        for i in problems_temp:
+            problems_pk.append(int(i))
+        total_problem_count = PublicProblem.objects.filter(city=city_id, problem_type__in=problems_pk).count()
     except ExtendedUser.DoesNotExist:
         anymnos = 0
 
     if anymnos:
-        total_problems_in_city = citywise_problems.count()
-        all_problems = ProblemType.objects.all()
 
-        total = SolvedProblem.objects.all()
-        pending_problems = total.filter(is_solved=0).count()
-        total_solved = total.filter(is_solved=1).count()
-
-        total_solved = total_solved if total_solved > 0 else 'No Completed Requests Yet'
+        pending_problems = SolvedProblem.objects.filter(is_solved=0, solved_problem__in=problems_pk).count()
+        total_solved = SolvedProblem.objects.filter(is_solved=1, solved_problem__in=problems_pk).count()
 
         context = {
-                   'username': username, 'public': citywise_problems, 'all_problems': all_problems,
-                   'total_problems_in_city': total_problems_in_city,
+                   'username': username, 'pending_problems': pending_problems,
+                   'total_problem_count': total_problem_count,
                    'total_solved': total_solved, 'pending_problems': pending_problems}
         return render(request, 'dashboard/dashboard.html', context)
     else:
@@ -65,7 +67,15 @@ def profilePage(request):
         address = detail.address
         groupname = detail.group_name
         jsonDec = json.decoder.JSONDecoder()
-        problems = jsonDec.decode(detail.problem_types)
+        problems_temp = jsonDec.decode(detail.problem_types)
+        problems_pk = []
+
+        for i in problems_temp:
+            problems_pk.append(int(i))
+
+        problems = ProblemType.objects.filter(pk__in=problems_pk)
+        print(problems)
+
         all_problems = ProblemType.objects.all()
 
         if request.method == 'POST':
@@ -156,7 +166,15 @@ def requested_problems(request):
     # all_problems = PublicProblem.objects.all()
     # cityid_p = PublicProblem.objects.filter(city=453).values_list('city', flat=True)
     a = SolvedProblem.objects.filter(solved_by=detail.id).values('solved_problem')
-    related_data = list(PublicProblem.objects.filter(city=city).exclude(id__in=a).select_related().order_by('-timestamp'))
+
+    jsonDec = json.decoder.JSONDecoder()
+    problems_temp = jsonDec.decode(detail.problem_types)
+    problems_pk = []
+
+    for i in problems_temp:
+        problems_pk.append(int(i))
+
+    related_data = list(PublicProblem.objects.filter(city=city, problem_type__in=problems_pk).exclude(id__in=a).select_related().order_by('-timestamp'))
 
     if request.method == 'POST':
         title = request.POST.get('report_options')
@@ -178,8 +196,8 @@ def requested_problems(request):
 def solved_problems(request):
     close_old_connections()
 
-    related_data = SolvedProblem.objects.all().prefetch_related('solved_by', 'solved_problem')
-    all_problems = ProblemType.objects.all()
+    related_data = SolvedProblem.objects.filter(solved_by=request.user.id).prefetch_related('solved_by', 'solved_problem')
+    # all_problems = ProblemType.objects.all()
 
     # related_data[0].solved_by.user.get_full_name()
     # related_data = related_data.filter(is_solved=1)
@@ -189,5 +207,5 @@ def solved_problems(request):
         problem_instance = SolvedProblem.objects.get(id=problem_id)
         problem_instance.delete()
 
-    context = {'problems': related_data, 'all_problems':all_problems}
+    context = {'problems': related_data}
     return render(request, 'dashboard/solvedproblems.html', context)

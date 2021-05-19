@@ -57,7 +57,7 @@
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             Total Requests
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{total_problems_in_city}}</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{total_problem_count}}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-hand-holding-heart fa-2x text-gray-300"></i>
@@ -74,7 +74,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            Pending Request
+                                            Pending Requests
                                         </div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{pending_problems}}</div>
                                     </div>
@@ -93,9 +93,14 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Completed Request
+                                            Solved Requests
                                         </div>
+                                        {%if total_solved %}
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{total_solved}}</div>
+                                        {%else%}
+                                            <p>You haven't solved any problem yet</p>
+                                        {%endif%}
+
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-heart fa-2x text-gray-300"></i>

@@ -42,44 +42,34 @@
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <a class="navbar-brand" href="#">Solved Problems</a>
-                    <form class="form-inline">
-                        <button class="btn btn-sm btn-outline-secondary" type="button"> 24 Hrs</button>
-                        <button class="btn btn-sm btn-outline-secondary" type="button"> 48 Hrs</button>
-                        <button class="btn btn-sm btn-outline-secondary" type="button"> Older</button>
-                    </form>
-                    <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"
-                            class="navbar-toggler"
-                            data-target="#navbarNavDropdown" data-toggle="collapse" type="button">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul class="navbar-nav">
+<!--                    <div class="collapse navbar-collapse" id="navbarNavDropdown">-->
+<!--                        <ul class="navbar-nav">-->
 
-                            <li class="nav-item dropdown">
-                                <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
-                                   data-toggle="dropdown"
-                                   href="#" id="navbarDropdownMenuLink" role="button">
-                                    Sort Problem Type
-                                </a>
-                                <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">
-                                    {%for prob in all_problems%}
-                                    <a class="dropdown-item" href="#">{{prob}}</a>
-                                    {%endfor%}
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
-                                   data-toggle="dropdown"
-                                   href="#" id="navbarDropdownMenuLink2" role="button">
-                                    Solved By
-                                </a>
-                                <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Solved By Me</a>
-                                    <a class="dropdown-item" href="#">Solved By Others</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+<!--                            <li class="nav-item dropdown">-->
+<!--                                <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"-->
+<!--                                   data-toggle="dropdown"-->
+<!--                                   href="#" id="navbarDropdownMenuLink" role="button">-->
+<!--                                    Sort Problem Type-->
+<!--                                </a>-->
+<!--                                <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">-->
+<!--                                    {%for prob in all_problems%}-->
+<!--                                    <a class="dropdown-item" href="#">{{prob}}</a>-->
+<!--                                    {%endfor%}-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item dropdown">-->
+<!--                                <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"-->
+<!--                                   data-toggle="dropdown"-->
+<!--                                   href="#" id="navbarDropdownMenuLink2" role="button">-->
+<!--                                    Solved By-->
+<!--                                </a>-->
+<!--                                <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">-->
+<!--                                    <a class="dropdown-item" href="#">Solved By Me</a>-->
+<!--                                    <a class="dropdown-item" href="#">Solved By Others</a>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
                 </nav>
                 <!-- Page Heading -->
 
@@ -89,7 +79,7 @@
 
                     <div class="col-lg-12 col-md-12">
 
-
+                        {% if problems %}
                         <!-- Basic Card Example -->
                         {% for solved in problems%}
                         <div class="card shadow mb-4 border-bottom-success">
@@ -97,7 +87,13 @@
                                 <h6 class="m-0 font-weight-bold text-primary"> Problem Type:
                                     {{solved.solved_problem.problem_type}}
                                     | Solved By : {{solved.solved_by.full_name}}
-                                    <span class="badge badge-primary" style="float: right;">verified</span>
+
+                                    {%if solved.is_solved == 1%}
+                                    <span class="badge success" style="float: right;">Solved</span>
+                                    {%else%}
+                                    <span class="badge badge-warning" style="float: right;">Pending</span>
+                                    {%endif%}
+
                                 </h6>
                             </div>
 
@@ -129,6 +125,12 @@
                             <!-- Modal -->
                         </div>
                         {%endfor%}
+                        {% else %}
+                        <div class="d-flex justify-content-center align-middle">
+                            <h4>You haven't solved any problem yet...</h4>
+                        </div>
+
+                        {% endif %}
                         <!-- Card End -->
                     </div>
                     <!-- End col -->

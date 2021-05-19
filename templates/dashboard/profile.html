@@ -213,7 +213,7 @@
 // Selected Problems
 data = [];
  {% for eachproblem in all_problems %}
-  data.push({id: '{{eachproblem}}', text: '{{eachproblem}}'});
+  data.push({id: '{{eachproblem.id}}', text: '{{eachproblem}}'});
  {% endfor %}
 
 $(function() {
