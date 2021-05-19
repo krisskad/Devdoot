@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+{% load static %}
+{% load widget_tweaks %}
+<html lang="en">
+
+<head>
+
+
+    <title>Devdoot Login </title>
+    {% block content %}
+    {%include 'includes/head.html' %}
+    {% endblock %}
+
+</head>
+<body class="bg-gradient-primary">
+<p class="bg-gradient-primary">
+
+<div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+        <div class="col-xl-10 col-lg-12 col-md-9">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                </div>
+
+
+                                <!--Login Form-->
+                                <form class="user" method="POST">
+                                    {%csrf_token%}
+                                    <div class="form-group">
+                                        <input aria-describedby="number" class="form-control form-control-user"
+                                               id="number" name="username"
+                                               placeholder="Enter Mobile Number..." type="text">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control form-control-user" id="exampleInputPassword"
+                                               name="password" placeholder="Password" type="password">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox small">
+                                            <input class="custom-control-input" id="customCheck" type="checkbox">
+                                            <label class="custom-control-label" for="customCheck">Remember
+                                                Me</label>
+                                        </div>
+                                    </div>
+
+                                    <!--                                    <a class="btn btn-primary btn-user btn-block" href="{% url 'dashboard' %}">-->
+                                    <!--                                        Login-->
+                                    <!--                                    </a>-->
+                                    <button class="btn btn-primary btn-block" type="submit">
+                                        Login
+                                    </button>
+
+                                    <hr>
+                                </form>
+
+
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small" href="#">Login With OTP</a>
+                                </div>
+                                <div class="text-center">
+                                    <a class="small" href="{% url 'register' %}">Create an Account!</a>
+
+                                    {% for message in messages %}
+                                    {% if 'error' in message.tags %}
+                                    <div class="alert alert-error">
+                                        <a class="close" data-dismiss="alert" href="#">×</a>
+
+                                        {{ message }}
+
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% for message in messages %}
+                                    {% if 'info' in message.tags %}
+                                    <div class="alert alert-info">
+                                        <a class="close" data-dismiss="alert" href="#">×</a>
+
+                                        {{ message }}
+
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% for message in messages %}
+                                    {% if 'success' in message.tags %}
+                                    <div class="alert alert-info">
+                                        <a class="close" data-dismiss="alert" href="#">×</a>
+
+                                        {{ message }}
+
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{%include 'includes/head.html' %}
+
+</body>
+
+</html>

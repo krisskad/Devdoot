@@ -1,0 +1,85 @@
+
+                    <!-- Basic Card Example -->
+                    {% for solved in problems%}
+                    <div class="card shadow mb-4 border-bottom-success">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary"> Problem Type:
+                                {{solved.solved_problem.problem_type}}
+                                | Solved By : {{solved.solved_by.full_name}}
+                                | User Verified : </h6>
+                        </div>
+
+                        <div class="card-body">
+                            <p class="m-0 "> {{solved.solved_problem.description}}
+                            <p>
+                            <p class="m-0">
+                                Name : {{solved.solved_problem.first_name}} {{solved.solved_problem.last_name}} |
+                                Number : {{solved.solved_problem.mobile}} |
+                                State : {{solved.solved_problem.state.name}} | City :
+                                {{solved.solved_problem.city.name}}</p>
+                            <div>
+                                <small class="text-gray-900"
+                                       style="float: right;font-size: xx-small;margin-right: 5px;">
+                                    Generate Date : {{solved.solved_problem.timestamp}}</small>
+                                <small style="float: right;
+                                    font-size: xx-small;" class="text-gray-900" > Solved Date : {{solved.when}}</small>
+                            </div>
+                            <hr>
+                            <a class="btn btn-danger btn-icon-split btn-sm"
+                               href="{%url 'solvedproblems'%}?not_solved={{solved.id}}">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                <span class="text">Not Solve </span>
+                            </a> <a class="btn btn-warning btn-icon-split btn-sm " data-target="#exampleModalCenter"
+                                    data-toggle="modal"
+                                    href="#">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </span>
+                            <span class="text">Report</span>
+                        </a>
+
+                        </div>
+                        <!-- Modal -->
+                        <div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade"
+                             id="exampleModalCenter"
+                             role="dialog" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalCenterTitle">Report Problem</h5>
+                                        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <select class="form-control">
+                                                    <option>Default select</option>
+                                                    <option>Fake Details</option>
+                                                    <option>Contact Number fake</option>
+                                                    <option>Other</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">Mention Problem against
+                                                    Request </label>
+                                                <textarea class="form-control" id="exampleFormControlTextarea1"
+                                                          rows="3"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" data-dismiss="modal" type="button">Close
+                                        </button>
+                                        <button class="btn btn-primary" type="button">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    {%endfor%}
+                    <!-- Card End -->

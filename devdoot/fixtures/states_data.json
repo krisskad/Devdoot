@@ -1,0 +1,330 @@
+[
+{
+    "model": "devdoot.states",
+    "pk": 1,
+    "fields": {
+        "name": "Andaman and Nicobar Islands",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 2,
+    "fields": {
+        "name": "Andhra Pradesh",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 3,
+    "fields": {
+        "name": "Arunachal Pradesh",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 4,
+    "fields": {
+        "name": "Assam",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 5,
+    "fields": {
+        "name": "Bihar",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 6,
+    "fields": {
+        "name": "Chandigarh",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 7,
+    "fields": {
+        "name": "Chhattisgarh",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 8,
+    "fields": {
+        "name": "Dadra and Nagar Haveli",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 9,
+    "fields": {
+        "name": "Daman and Diu",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 10,
+    "fields": {
+        "name": "Delhi",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 11,
+    "fields": {
+        "name": "Goa",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 12,
+    "fields": {
+        "name": "Gujarat",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 13,
+    "fields": {
+        "name": "Haryana",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 14,
+    "fields": {
+        "name": "Himachal Pradesh",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 15,
+    "fields": {
+        "name": "Jammu and Kashmir",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 16,
+    "fields": {
+        "name": "Jharkhand",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 17,
+    "fields": {
+        "name": "Karnataka",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 18,
+    "fields": {
+        "name": "Kenmore",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 19,
+    "fields": {
+        "name": "Kerala",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 20,
+    "fields": {
+        "name": "Lakshadweep",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 21,
+    "fields": {
+        "name": "Madhya Pradesh",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 22,
+    "fields": {
+        "name": "Maharashtra",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 23,
+    "fields": {
+        "name": "Manipur",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 24,
+    "fields": {
+        "name": "Meghalaya",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 25,
+    "fields": {
+        "name": "Mizoram",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 26,
+    "fields": {
+        "name": "Nagaland",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 27,
+    "fields": {
+        "name": "Narora",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 28,
+    "fields": {
+        "name": "Natwar",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 29,
+    "fields": {
+        "name": "Odisha",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 30,
+    "fields": {
+        "name": "Paschim Medinipur",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 31,
+    "fields": {
+        "name": "Pondicherry",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 32,
+    "fields": {
+        "name": "Punjab",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 33,
+    "fields": {
+        "name": "Rajasthan",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 34,
+    "fields": {
+        "name": "Sikkim",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 35,
+    "fields": {
+        "name": "Tamil Nadu",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 36,
+    "fields": {
+        "name": "Telangana",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 37,
+    "fields": {
+        "name": "Tripura",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 38,
+    "fields": {
+        "name": "Uttar Pradesh",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 39,
+    "fields": {
+        "name": "Uttarakhand",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 40,
+    "fields": {
+        "name": "Vaishali",
+        "country": 101
+    }
+},
+{
+    "model": "devdoot.states",
+    "pk": 41,
+    "fields": {
+        "name": "West Bengal",
+        "country": 101
+    }
+}
+]

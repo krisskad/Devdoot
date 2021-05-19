@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+{% load static %}
+{% load widget_tweaks %}
+<html lang="en">
+
+<head>
+    <title>Profile</title>
+    {%include 'includes/head.html' %}
+
+    <style type="text/css">
+    .btn-status
+    {
+    float: right;
+    margin: 0px 5px 0px 0px;
+    }
+
+
+    </style>
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    {%include 'includes/sidebar.html' %}
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div class="d-flex flex-column" id="content-wrapper">
+
+        <!-- Main Content -->
+        <div id="content">
+            <!-- End of Topbar -->
+            {%include 'includes/topbar.html' %}
+            <!-- End of Topbar -->
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Account page navigation-->
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a aria-controls="home" aria-selected="true" class="nav-link active" href="{% url 'profile' %}"
+                           id="home-tab" role="tab">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a aria-controls="profile" aria-selected="false" class="nav-link" href="{% url 'reset_password' %}"
+                           id="profile-tab" role="tab">Security</a>
+                    </li>
+                </ul>
+
+                <div class="row">
+
+                    <div class="col-xl-12">
+                        <!-- Account details card-->
+                        <div class="card mb-4">
+                            <div class="card-header">Account Details</div>
+                            <div class="card-body">
+                                <form action="{%url 'profile' %}" class="user" method="post">
+                                    {%csrf_token%}
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        <select class="form-control select2" disabled>
+                                            <option>{{state}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>City</label>
+
+                                        <select class="form-control select2" disabled>
+
+                                            <option>{{city}}</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Address</label>
+
+                                        <input class="form-control " disabled id="exampleInputAddress" name="address"
+                                               placeholder="Address" type="text" value="{{address}}">
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="form-group col-sm-6 mb-3 mb-sm-0">
+                                            <label>First Name</label>
+
+                                            <input class="form-control " disabled id="exampleInputFName"
+                                                   name="first_name" placeholder="{{first_name}}" type="text">
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label>Last Name</label>
+
+                                            <input class="form-control " disabled id="exampleInputLName"
+                                                   name="last_name" placeholder="{{last_name}}" type="text">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Mobile</label>
+
+                                        <input class="form-control " disabled id="exampleInputMobile"
+                                               name="mobile" placeholder="{{username}}" type="text">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input class="form-control " disabled id="exampleInputEmail1" name="email"
+                                               placeholder="{{email}}" type="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Selected Problems</label>
+                                        <select class="col-12 form-control" disabled id="demo" multiple
+                                                name="problemtypes[]">
+                                            {%for problemd in problems%}
+                                            <option selected value="{{problemd}}">{{problemd}}</option>
+                                            {%endfor%}
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="form-group col-sm-6 mb-3 mb-sm-0">
+                                            <label>Gender</label>
+                                            <select class="form-control select1" disabled id="exampleInputGender"
+                                                    name="gender">
+                                                <option disabled hidden selected value="{{detail.gender}}">
+                                                    {{detail.gender}}
+                                                </option>
+                                                <option value="M">Male</option>
+                                                <option value="F">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label>Account Type</label>
+                                            <select class="form-control select2" disabled id="account_type"
+                                                    name="account_type">
+                                                <option disabled hidden selected value="">{{detail.account_type}}
+                                                </option>
+                                                <option value="individual">Individual</option>
+                                                <option value="group">Group</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    {% if groupname is not None %}
+                                    <div class="form-group">
+                                        <label>Group/Orgnization Name</label>
+                                        <input class="form-control " disabled id="exampleInputGroupname"
+                                               placeholder="Group Name" type="email" value="{{groupname}}">
+                                    </div>
+                                    {%endif%}
+
+                                    <!-- Save changes button-->
+                                    <button class="btn btn-primary" disabled id="exampleInputSubmitBtn" type="submit">
+                                        Save changes
+                                    </button>
+                                    <input class="btn btn-danger" id="editBtn" type="button" value="Edit">
+
+                                    <hr>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Devdoot 2021</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="logoutModal" role="dialog"
+     tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Cancel</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+// Selected Problems
+data = [];
+ {% for eachproblem in all_problems %}
+  data.push({id: '{{eachproblem}}', text: '{{eachproblem}}'});
+ {% endfor %}
+
+$(function() {
+  const select = $('#demo');
+
+  select.select2({
+    placeholder: 'Select an option',
+    data: data
+  })
+  .on('change', (event) => {
+    const selecions = select.select2('data')
+    .map((element) => parseInt(element.id, 10));
+
+  });
+});
+
+
+</script>
+<script>
+			var edit= false;
+			$(document).ready(function(){
+				$('#editBtn').on('click',function(){
+					if(edit == false){
+					edit= true;
+						$('#editBtn').prop('value', "Cancel");
+						$('#exampleInputEmail1').prop('disabled', false);
+						$('#exampleInputLName').prop('disabled', false);
+						$('#exampleInputFName').prop('disabled', false);
+						$('#exampleInputMobile').prop('disabled', false);
+						$('#exampleInputGender').prop('disabled', false);
+						$('#demo').prop('disabled', false);
+						$('#exampleInputSubmitBtn').prop('disabled', false);
+					}else{
+					edit= false;
+						$('#editBtn').prop('value', "Edit");
+						$('#exampleInputEmail1').prop('disabled', true);
+						$('#exampleInputLName').prop('disabled', true);
+						$('#exampleInputFName').prop('disabled', true);
+						$('#exampleInputMobile').prop('disabled', true);
+						$('#exampleInputGender').prop('disabled', true);
+						$('#demo').prop('disabled', true);
+						$('#exampleInputSubmitBtn').prop('disabled', true);
+					}
+				});
+			});
+
+</script>
+</body>
+
+</html>

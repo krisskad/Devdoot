@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+
+<head>
+
+    <title>Devdoot Dashboard</title>
+    {%include 'includes/head.html' %}
+
+
+    <style type="text/css">
+    .btn-status
+    {
+            float: right;
+    margin: 0px 5px 0px 0px;
+    }
+
+    </style>
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    {%include 'includes/sidebar.html' %}
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div class="d-flex flex-column" id="content-wrapper">
+
+        <!-- Main Content -->
+        <div id="content">
+            <!-- End of Topbar -->
+            {%include 'includes/topbar.html' %}
+            <!-- End of Topbar -->
+
+           <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="{%url 'requestedproblems'%}">Requested Problems</a>
+                    <form class="form-inline">
+                        <button class="btn btn-sm btn-outline-secondary" type="button"> 24 Hrs</button>
+                        <button class="btn btn-sm btn-outline-secondary" type="button"> 48 Hrs</button>
+                        <button class="btn btn-sm btn-outline-secondary" type="button"> Older</button>
+                    </form>
+                    <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"
+                            class="navbar-toggler"
+                            data-target="#navbarNavDropdown" data-toggle="collapse" type="button">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+
+                            <li class="nav-item dropdown">
+                                <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
+                                   data-toggle="dropdown"
+                                   href="#" id="navbarDropdownMenuLink" role="button">
+                                    Sort Problem Type
+                                </a>
+                                <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">
+                                    {%for prob in all_problems%}
+                                    <a class="dropdown-item" href="#">{{prob}}</a>
+                                    {%endfor%}
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- Page Heading -->
+
+
+                <!-- Show The statistics Numbers -->
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12">
+
+
+                        <!-- Basic Card Example -->
+                        {% for problem in problems %}
+                        <div class="card shadow mb-4 border-bottom-primary">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary"> Problem Type: {{problem.problem_type}} </h6>
+                            </div>
+
+                            <div class="card-body">
+                                <p class="m-0 "> {{problem.description}}
+                                <p>
+                                <p class="m-0">
+                                    Name : {{problem.full_name}} |
+                                    Number : {{problem.mobile}} |
+                                    State : {{problem.state}} | City : {{problem.city}}</p>
+                                <small class="text-muted" style="float: right;
+        font-size: xx-small;"> Date : {{problem.timestamp}} </small>
+                                <hr>
+                                <a class="btn btn-success btn-icon-split btn-sm"
+                                   href="{%url 'requestedproblems'%}?solved={{problem.id}}">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                    <span class="text">Solve </span>
+                                </a> <a class="btn btn-warning btn-icon-split btn-sm "
+                                        data-target="#report-model{{problem.id}}"
+                                        data-toggle="modal"
+                                        href="#">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                            </span>
+                                <span class="text">Report</span>
+                            </a>
+
+                            </div>
+
+                            <!-- Modal -->
+                            <div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade"
+                                 id="report-model{{problem.id}}"
+                                 role="dialog" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalCenterTitle">Report Problem</h5>
+                                            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+
+                                            <form method="post">
+                                                {% csrf_token %}
+                                                <div class="form-group">
+                                                    <input name="reported_to" type="hidden" value="{{problem.id}}"/>
+                                                    <select class="form-control" name="report_options">
+                                                        <option value="">Default select</option>
+                                                        <option value="fake detail">Fake Details</option>
+                                                        <option value="fake contact">Contact Number fake</option>
+                                                        <option value="other">Other</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Mention Problem against
+                                                        Request </label>
+                                                    <textarea class="form-control"
+                                                              name="report_description" rows="3"></textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" data-dismiss="modal" type="button">
+                                                        Close
+                                                    </button>
+                                                    <button class="btn btn-primary"
+                                                            type="submit">Submit
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        {%endfor%}
+                        <!-- Card End -->
+                    </div>
+                    <!-- End col -->
+
+                </div>
+                <!-- End Row -->
+
+
+            </div>
+            <!-- /.container-fluid -->
+
+
+        </div>
+        <!-- End of Main Content -->
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Devdoot 2021</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
+            <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="logoutModal" role="dialog"
+         tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal" type="button">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {%include 'includes/bottom.html' %}
+</body>
+
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+
+<head>
+
+    <title>Devdoot Dashboard</title>
+    {%include 'includes/head.html' %}
+      <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    {%include 'includes/sidebar.html' %}
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div class="d-flex flex-column" id="content-wrapper">
+
+        <!-- Main Content -->
+        <div id="content">
+            <!-- End of Topbar -->
+            {%include 'includes/topbar.html' %}
+            <!-- End of Topbar -->
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+
+                <!-- Show The statistics Numbers -->
+                <div class="row">
+
+                    <!-- New Requests Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Total Requests
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{total_problems_in_city}}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-hand-holding-heart fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pending Requests Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Pending Request
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{pending_problems}}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-heartbeat fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Completed Requests Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Completed Request
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{total_solved}}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-heart fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Row -->
+                <div class="row">
+                    <div class="col-xxl-4 col-xl-6 mb-4">
+                        <div class="card card-header-actions h-100">
+                            <div class="card-header">
+                                Recent Activity
+                            </div>
+                            <div class="card-body">
+
+
+                                <ul class="timeline">
+                                    <li>
+                                        <a href="#" target="_blank">Yogesh Helped 5 Peopls</a>
+                                        <a class="float-right" href="#">21 March, 2021 05:00:00 PM</a>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque
+                                            diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis
+                                            mollis. Duis sagittis ligula in sodales vehicula....</p>
+                                    </li>
+                                    <li>
+                                        <a href="#">Free Food Available</a>
+                                        <a class="float-right" href="#">4 March, 2021 10:00:00 AM</a>
+                                        <p>Curabitur purus sem, malesuada eu luctus eget, suscipit sed turpis. Nam
+                                            pellentesque felis vitae justo accumsan, sed semper nisi sollicitudin...</p>
+                                    </li>
+                                    <li>
+                                        <a href="#">New vaccine Stock arrived</a>
+                                        <a class="float-right" href="#">1 April, 2021 06:00:00 PM </a>
+                                        <p>Fusce ullamcorper ligula sit amet quam accumsan aliquet. Sed nulla odio,
+                                            tincidunt vitae nunc vitae, mollis pharetra velit. Sed nec tempor
+                                            nibh...</p>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Devdoot 2021</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="logoutModal" role="dialog"
+     tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Cancel</button>
+                <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    {%include 'includes/bottom.html' %}
+
+
+</body>
+
+</html>

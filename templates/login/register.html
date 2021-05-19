@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+
+<html lang="en">
+
+<head>
+
+    <title>Devdoot Registration Form</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-auth.js"></script>
+    {%include 'includes/head.html' %}
+</head>
+
+
+<body class="bg-gradient-primary">
+<script>
+$( document ).ready(function() {
+    $('#admDivCheck').css('display','none');
+    $('select#getFname').on('change', (event) => {
+        //console.log($('select#getFname').val());
+        if($('select#getFname').val() == "group")
+            $('#admDivCheck').css('display','block');
+        else
+            $('#admDivCheck').css('display','none');
+    });
+});
+</script>
+{% block body %}
+<div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Join As Devdoot!</h1>
+                        </div>
+
+
+                        <form class="user" data-location-url="{% url 'ajax-load-cities' %}" id="locationform"
+                              method="POST">
+                            {%csrf_token%}
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label>First Name</label>
+                                                {{ form.first_name|add_class:"form-control" }}
+                                                <!--                                    <input class="form-control " id="exampleFirstName" name="first_name"-->
+                                                <!--                                           placeholder="First Name"-->
+                                                <!--                                           type="text">-->
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label>Last Name</label>
+                                                {{ form.last_name|add_class:"form-control" }}
+                                                <!--                                    <input class="form-control " id="exampleLastName" name="last_name"-->
+                                                <!--                                           placeholder="Last Name"-->
+                                                <!--                                           type="text">-->
+                                            </div>
+                                        </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        {{ form.email|add_class:"form-control" }}
+                                        <!--                                <input class="form-control " id="exampleInputEmail" name="email"-->
+                                        <!--                                       placeholder="Email Address"-->
+                                        <!--                                       type="email">-->
+                                    </div>
+
+                                        <div class="form-group">
+                                            <label>Mobile</label>
+                                            <div class="input-group">
+                                                {{ form.username|add_class:"form-control" }}
+                                                <input type="button" class="btn btn-primary input-group-append" value="Validate" id="mobile-btn">
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-danger" role="alert" id="mobile-error" style="display:none;">
+                                            0o0
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="otp">OTP</label>
+                                            <div class="input-group">
+                                                <input readonly type="text" class="form-control" id="otp" placeholder="Enter OTP" />
+                                                <input type="button" class="btn btn-primary input-group-append" value="  Verify  " disabled id="otp-btn"/>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-danger" role="alert" id="otp-error" style="display:none;">
+                                            Invalid OTP
+                                        </div>
+                                    <div class="form-group row">
+                                        <div class="form-group col-sm-6 mb-3 mb-sm-0">
+                                            <label>Gender</label>
+                                            <select class="form-control select1" id="gender" name="gender" required>
+                                                <option disabled hidden selected value="">Select Gender</option>
+                                                <option value="M">Male</option>
+                                                <option value="F">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label>Account Type</label>
+                                            <select class="form-control select2" id="getFname" name="account_type" required>
+                                                <option disabled hidden selected value="">Select Account Type</option>
+                                                <option value="individual">Individual</option>
+                                                <option value="group">Group</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="form-group col-sm-6 mb-3 mb-sm-0">
+                                            <label>State</label>
+                                            <select class="form-control select2" id="state" name="state" required>
+                                                <option disabled hidden selected value="">Select State</option>
+                                                {% for state in states %}
+                                                <option value="{{ state.pk }}">{{state.name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label>City</label>
+                                            <select class="form-control select2" id="city" name="city" required>
+                                                <option disabled hidden selected value="">Select City</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <!--									{{ form2.address|add_class:"form-control" }}-->
+                                        <input class="form-control " id="address" name="address"
+                                               placeholder="Enter Your Address"
+                                               type="text" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Profession</label>
+                                        <!--									{{ form2.profession|add_class:"form-control" }}-->
+                                        <input class="form-control " id="profession" name="profession"
+                                               placeholder="Enter Your Profession"
+                                               type="text" required>
+                                    </div>
+                                    <div class="form-group" id="admDivCheck">
+                                        <label>Group Name</label>
+                                        <input class="form-control" name="groupname" placeholder="Enter Group Name/Oraganization Name"
+                                               type="text">
+                                    </div>
+                                    <div class="form-group ">
+                                        <label>Problem Types</label>
+                                        <select class="col-12 form-control" name="problemtypes[]" id="demo" multiple></select>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label>Create Password</label>
+                                            {{ form.password1|add_class:"form-control" }}
+                                            <!--                                    <input class="form-control " id="exampleInputPassword"-->
+                                            <!--                                           name="password1" placeholder="Password" type="password">-->
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Confirm Password</label>
+                                            {{ form.password2|add_class:"form-control" }}
+
+                                            <!--                                    <input class="form-control " id="exampleRepeatPassword"-->
+                                            <!--                                           name="password2" placeholder="Repeat Password" type="password">-->
+                                        </div>
+                                        <p>
+                                            <h6>
+                                                <small class="col-sm-12 mb-3 mb-sm-0 fw-lighter">
+                                                    Password must be at least 8 characters long with one upper case.
+                                                </small>
+                                            </h6>
+
+                                    </div>
+                                    <button class="btn btn-primary btn-block" type="submit">
+                                        Register
+                                    </button>
+                            <hr>
+
+                            </form>
+
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="otplogin.html">Already have an account? Login With OTP</a>
+                            </div>
+
+                            <div class="text-center">
+                                <a class="small" href="{% url 'login' %}">Already have an account? Login With
+                                    Password</a>
+                                <p>{{form.errors}}</p>
+                                {% for message in messages %}
+                                    {% if 'error' in message.tags %}
+                                        <div class="alert alert-error">
+                                            <a class="close" href="#" data-dismiss="alert">×</a>
+
+                                                {{ message }}
+
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                {% for message in messages %}
+                                    {% if 'info' in message.tags %}
+                                        <div class="alert alert-info">
+                                            <a class="close" href="#" data-dismiss="alert">×</a>
+
+                                                {{ message }}
+
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Firebase JSON object -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDax4_4FwNnNlyfRwIGq6_ROmOu7Cdivao",
+    authDomain: "react-projects-d18c1.firebaseapp.com",
+    databaseURL: "https://react-projects-d18c1-default-rtdb.firebaseio.com",
+    projectId: "react-projects-d18c1",
+    storageBucket: "react-projects-d18c1.appspot.com",
+    messagingSenderId: "640347701955",
+    appId: "1:640347701955:web:c082ce8cc85bc82e585876"
+  };
+  // Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+</script>
+<!--Pop new input if group is selected-->
+<script>
+
+    $('#mobile-btn').click(function(event){
+        event.preventDefault();
+        $('#mobile-btn').attr('disabled',true);
+        $('#id_username').attr('readonly',true);
+        let mobile = $('#id_username').val();
+
+        if(mobile != "" && mobile.length == 10){
+            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('mobile-btn', {
+              'size': 'invisible',
+              'callback': (response) => {
+                // reCAPTCHA solved, allow signInWithPhoneNumber.
+                console.log(window.recaptchaVerifier);
+              },
+            'expired-callback': (error) => {
+                // Response expired. Ask user to solve reCAPTCHA again.
+                // ...
+
+                  $('#mobile-error').css('display','block');
+                  $('#mobile-error').innerHTML(error.message);
+                $("#mobile-btn").attr('disabled',false);
+                $('#id_username').attr('readonly',false);
+
+            }
+
+            });
+            const appVerifier = window.recaptchaVerifier;
+            firebase.auth().signInWithPhoneNumber( "+91"+mobile, appVerifier)
+            .then((confirmationResult) => {
+                // SMS sent. Prompt user to type the code from the message, then sign the
+                // user in with confirmationResult.confirm(code).
+                window.confirmationResult = confirmationResult;
+                console.log(window.confirmationResult);
+                $('#id_username').attr('readonly',true);
+                $("#mobile-btn").attr('disabled',true);
+                $('#otp').attr('readonly',false);
+                $('#otp-btn').attr('disabled',false);
+                // ...
+            }).catch((error) => {
+                // Error; SMS not sent
+                // ...
+                console.log(error.message);
+                $('#mobile-error').css('display','block');
+                $('#mobile-error').html(error.message);
+
+            });
+        }else{
+            $('#id_username').attr('readonly',false);
+            $('#mobile-btn').attr('disabled',false);
+            $('#mobile-error').css('display','block');
+                $('#mobile-error').html("Invalid Mobile Number.");
+        }
+    });
+
+    $('#otp-btn').click(function(event){
+        event.preventDefault();
+        let otp = $('#otp').val();
+        if(otp != ""){
+            window.confirmationResult.confirm(otp).then((result) => {
+                $('#otp-btn').attr('disabled',true);
+                $('#otp').attr('readonly',true);
+
+                $('#otp-error').css('display','block');
+                $('#otp-error').attr('class','alert alert-success');
+                $('#otp-error').html("Mobile number Verified.");
+
+            }).catch((error) => {
+                $('#otp-error').css('display','block');
+                $('#otp-error').html(error.message);
+
+                // OTP Expire error
+                // if(error.message == ""){
+                    // window.recaptchaVerifier.render().then(function (widgetId) {
+                    //     grecaptcha.reset(widgetId);
+                    // });
+                 // }
+            });
+        }else{
+            $('#otp-error').css('display','block');
+            $('#otp-error').html("Invalid OTP.");
+        }
+    });
+
+</script>
+
+<!--Dynamic City selection from state id-->
+<script>
+
+    $("#state").change(function () {
+      var url = $("#locationform").attr("data-location-url");  // get the url of the `cities` view
+      var state_id = $(this).val();  // get the selected state ID from the HTML input
+      $.ajax({                       // initialize an AJAX request
+        type: "GET",
+        url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+        data: {
+          'state_id': state_id       // add the programming id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_courses` view function
+          $("#city").html(data);  // replace the contents of the course input with the data that came from the server
+        }
+      });
+
+    });
+
+
+</script>
+
+<!--Multiple problem type selection input-->
+<script>
+data = [];
+ {% for eachproblem in all_problems %}
+  data.push({id: '{{eachproblem.id}}', text: '{{eachproblem}}'});
+ {% endfor %}
+
+$(function() {
+  const select = $('#demo');
+
+  select.select2({
+    placeholder: 'Select an option',
+    data: data
+  })
+  .on('change', (event) => {
+    const selecions = select.select2('data')
+    .map((element) => parseInt(element.id, 10));
+
+  });
+});
+
+
+</script>
+
+
+{% endblock body %}
+
+</body>
+</html>
+

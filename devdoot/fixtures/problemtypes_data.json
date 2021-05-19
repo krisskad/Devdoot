@@ -1,0 +1,121 @@
+[
+{
+    "model": "devdoot.ProblemType",
+    "pk": 1,
+    "fields": {
+        "problem_title": "Bed Availability"
+    }
+},
+{
+    "model": "devdoot.ProblemType",
+    "pk": 2,
+    "fields": {
+        "problem_title": "Oxygen Cylinders"
+    }
+},
+{
+    "model": "devdoot.ProblemType",
+    "pk": 3,
+    "fields": {
+        "problem_title": "Plasma Donor"
+    }
+},
+{
+    "model": "devdoot.ProblemType",
+    "pk": 4,
+    "fields": {
+        "problem_title": "Plasma"
+    }
+},
+{
+    "model": "devdoot.ProblemType",
+    "pk": 5,
+    "fields": {
+        "problem_title": "Injections"
+    }
+},
+{
+    "model": "devdoot.ProblemType",
+    "pk": 6,
+    "fields": {
+        "problem_title": "Remdesivir"
+    }
+},
+{
+    "model": "devdoot.ProblemType",
+    "pk": 7,
+    "fields": {
+        "problem_title": "Ambulance"
+    }
+},
+    {
+    "model": "devdoot.ProblemType",
+    "pk": 8,
+    "fields": {
+        "problem_title": "Blood"
+    }
+},
+{
+    "model": "devdoot.ProblemType",
+    "pk": 9,
+    "fields": {
+        "problem_title": "FABIFLU"
+    }
+},
+{
+    "model": "devdoot.ProblemType",
+    "pk": 10,
+    "fields": {
+        "problem_title": "ICU O2 Bed"
+    }
+},
+ {
+    "model": "devdoot.ProblemType",
+    "pk": 11,
+    "fields": {
+        "problem_title": "Non ICU O2 Bed"
+    }
+},
+{
+    "model": "devdoot.ProblemType",
+    "pk": 12,
+    "fields": {
+        "problem_title": "Food"
+    }
+},
+{
+    "model": "devdoot.ProblemType",
+    "pk": 13,
+    "fields": {
+        "problem_title": "Medicines"
+    }
+},
+{
+    "model": "devdoot.ProblemType",
+    "pk": 14,
+    "fields": {
+        "problem_title": "Rt-PCR Test Centre"
+    }
+},
+{
+    "model": "devdoot.ProblemType",
+    "pk": 15,
+    "fields": {
+        "problem_title": "Vaccine Centers"
+    }
+},
+{
+    "model": "devdoot.ProblemType",
+    "pk": 16,
+    "fields": {
+        "problem_title": "Hospitals"
+    }
+},
+{
+    "model": "devdoot.ProblemType",
+    "pk": 17,
+    "fields": {
+        "problem_title": "Doctor"
+    }
+}
+]

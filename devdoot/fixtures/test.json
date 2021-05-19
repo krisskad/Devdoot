@@ -1,0 +1,9 @@
+[
+{
+    "model": "devdoot.ProblemType",
+    "pk": 1,
+    "fields": {
+        "problem_title": "Bed Availability"
+    }
+}
+]

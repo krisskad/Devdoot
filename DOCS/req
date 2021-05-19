@@ -1,0 +1,10 @@
+# Create Fixture file
+python manage.py dumpdata app.model_name --indent 4 > fixtures/file_name.json
+
+# Load Fixture files
+python manage.py loaddata devdoot/fixtures/countries_data.json --app devdoot.Countries
+python manage.py loaddata devdoot/fixtures/states_data.json --app devdoot.States
+python manage.py loaddata devdoot/fixtures/cities_data.json --app devdoot.Cities
+python manage.py loaddata devdoot/fixtures/problemtypes_data.json --app devdoot.ProblemTypes
+
+

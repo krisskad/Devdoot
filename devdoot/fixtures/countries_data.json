@@ -1,0 +1,11 @@
+[
+{
+    "model": "devdoot.countries",
+    "pk": 101,
+    "fields": {
+        "sortname": "IN",
+        "name": "India",
+        "phonecode": 91
+    }
+}
+]
