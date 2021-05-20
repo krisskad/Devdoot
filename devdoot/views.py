@@ -4,15 +4,12 @@ from django.contrib.auth.decorators import login_required
 from devdoot.models import ExtendedUser, ProblemReport, PublicProblem, Cities, SolvedProblem, ProblemType
 from django.contrib import messages
 from django.db import close_old_connections
-
-
 import json
 
 
 # Create your views here.
 @login_required(login_url='login')
 def dashboard_page(request):
-    close_old_connections()
 
     username = request.user
     anymnos = 1
@@ -44,12 +41,13 @@ def dashboard_page(request):
         msg = "No Data Available"
         context = {'first_name': msg, 'last_name': msg, 'email': msg, 'username': username,
                    'public': msg}
+        close_old_connections()
+
         return render(request, 'dashboard/dashboard.html', context)
 
 
 @login_required(login_url='login')
 def profilePage(request):
-    close_old_connections()
 
     username = request.user
 
@@ -74,7 +72,7 @@ def profilePage(request):
             problems_pk.append(int(i))
 
         problems = ProblemType.objects.filter(pk__in=problems_pk)
-        print(problems)
+        # print(problems)
 
         all_problems = ProblemType.objects.all()
 
@@ -122,6 +120,8 @@ def profilePage(request):
                    'email': email, 'username': username, 'detail': detail,
                    'state': state, 'city': city, 'address': address, 'problems': problems, 'all_problems':all_problems,
                    'groupname': groupname}
+        close_old_connections()
+
         return render(request, 'dashboard/profile.html', context)
     else:
         msg = "No Data Available"
@@ -129,12 +129,13 @@ def profilePage(request):
                    'email': msg, 'username': username, 'detail': msg,
                    'state': msg, 'city': msg, 'address': msg, 'problems': msg, 'all_problems':msg,
                    'groupname': msg}
+        close_old_connections()
+
         return render(request, 'dashboard/profile.html', context)
 
 
 @login_required(login_url='login')
 def requested_problems(request):
-    close_old_connections()
 
     username = request.user
     first_name = request.user.first_name
@@ -157,11 +158,11 @@ def requested_problems(request):
             solve_save = SolvedProblem.objects.get(solved_problem=problem_instance)
             # solve_save.is_solved = 1
             # solve_save.save()
-            print("update")
+            # print("update")
         except SolvedProblem.DoesNotExist:
             solve_save = SolvedProblem(solved_problem=problem_instance, is_solved=0, solved_by=detail)
             solve_save.save()
-            print('save')
+            # print('save')
 
     # all_problems = PublicProblem.objects.all()
     # cityid_p = PublicProblem.objects.filter(city=453).values_list('city', flat=True)
@@ -181,7 +182,6 @@ def requested_problems(request):
         description = request.POST.get('report_description')
         reported_to = PublicProblem.objects.get(id=request.POST.get('reported_to'))
 
-        print(title, description, reported_to)
         if title and description and reported_to:
             report = ProblemReport(submitted_by=detail,
                                    title=title, description=description,
@@ -189,12 +189,13 @@ def requested_problems(request):
             report.save()
 
     context = {'first_name': first_name, 'last_name': last_name, 'problems': related_data, 'all_problems':all_problems}
+    close_old_connections()
+
     return render(request, 'dashboard/requestedproblem.html', context)
 
 
 @login_required(login_url='login')
 def solved_problems(request):
-    close_old_connections()
 
     related_data = SolvedProblem.objects.filter(solved_by=request.user.id).prefetch_related('solved_by', 'solved_problem')
     # all_problems = ProblemType.objects.all()
@@ -208,4 +209,6 @@ def solved_problems(request):
         problem_instance.delete()
 
     context = {'problems': related_data}
+    close_old_connections()
+
     return render(request, 'dashboard/solvedproblems.html', context)

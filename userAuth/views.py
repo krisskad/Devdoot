@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db import close_old_connections
 
+
 # from django.views.decorators.csrf import csrf_exempt
 
 from pathlib import Path
@@ -19,7 +20,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Create your views here.
 
 def loginPage(request):
-    close_old_connections()
     if request.user.is_authenticated:
         return redirect('dashboard')
     else:
@@ -36,6 +36,8 @@ def loginPage(request):
                 messages.info(request, 'Username OR password is incorrect')
 
         context = {}
+        close_old_connections()
+
         return render(request, 'login/login.html', context)
 
 
@@ -46,7 +48,6 @@ def logoutUser(request):
 
 # @csrf_exempt
 def registerPage(request):
-    close_old_connections()
     if request.user.is_authenticated:
         return redirect('dashboard')
     else:
@@ -124,13 +125,16 @@ def registerPage(request):
         states = States.get_all_states()
         all_problems = ProblemType.objects.all()
         context = {'form': form, 'states': states, 'all_problems': all_problems}
+        close_old_connections()
+
         return render(request, 'login/register.html', context)
 
 
 def load_cities(request):
-    close_old_connections()
     state_id = request.GET.get('state_id')
     cities = Cities.objects.filter(state_id=state_id).order_by('name')
+    close_old_connections()
+
     return render(request, 'login/cities.html', {'cities': cities})
 
 
@@ -141,7 +145,6 @@ def forgotPage(request):
 
 @login_required(login_url='login')
 def resetPage(request):
-    close_old_connections()
     if request.method == 'POST':
         username = request.user.username
         password = request.POST.get('oldpassword')
@@ -156,9 +159,11 @@ def resetPage(request):
             if user is not None:
                 user.set_password(newpass1)
                 user.save()
-                return redirect('/')
                 messages.info(request, 'Now login with your new password')
+                return redirect('/')
         else:
             messages.info(request, 'Make sure you entered new password correctly')
     context = {}
+    close_old_connections()
+
     return render(request, 'login/password_change.html', context)
