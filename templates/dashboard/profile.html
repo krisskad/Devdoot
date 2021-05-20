@@ -16,6 +16,7 @@
     }
 
 
+
     </style>
 </head>
 
@@ -33,7 +34,7 @@
 
         <!-- Main Content -->
         <div id="content">
-            <!-- End of Topbar -->
+            <!-- Topbar -->
             {%include 'includes/topbar.html' %}
             <!-- End of Topbar -->
 
@@ -47,7 +48,8 @@
                            id="home-tab" role="tab">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a aria-controls="profile" aria-selected="false" class="nav-link" href="{% url 'reset_password' %}"
+                        <a aria-controls="profile" aria-selected="false" class="nav-link"
+                           href="{% url 'reset_password' %}"
                            id="profile-tab" role="tab">Security</a>
                     </li>
                 </ul>
@@ -159,9 +161,14 @@
                                     <hr>
                                 </form>
                             </div>
+
                         </div>
+                            <!-- End Card-->
                     </div>
+                    <!-- End col -->
+
                 </div>
+                <!-- End Row-->
 
             </div>
             <!-- /.container-fluid -->
@@ -209,6 +216,7 @@
         </div>
     </div>
 </div>
+{%include 'includes/bottom.html' %}
 <script>
 // Selected Problems
 data = [];
@@ -229,6 +237,7 @@ $(function() {
 
   });
 });
+
 
 
 </script>
@@ -259,6 +268,7 @@ $(function() {
 					}
 				});
 			});
+
 
 </script>
 </body>

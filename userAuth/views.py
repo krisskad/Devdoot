@@ -57,6 +57,7 @@ def registerPage(request):
         form.fields['username'].widget.attrs['placeholder'] = 'Enter 10 digit mobile number'
         form.fields['email'].widget.attrs['placeholder'] = 'Enter email address'
         form.fields['first_name'].widget.attrs['placeholder'] = 'Enter first name'
+        form.fields['first_name'].widget.attrs['autofocus'] = 'True'
         form.fields['last_name'].widget.attrs['placeholder'] = 'Enter last name'
         form.fields['password1'].widget.attrs['placeholder'] = 'Ex. Pass@1234'
         form.fields['password2'].widget.attrs['placeholder'] = 'Re-Enter password'
