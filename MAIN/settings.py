@@ -108,7 +108,7 @@ DATABASES = {
         'PASSWORD': 'wEVQu$tKKZpK',
         'HOST': '184.168.96.38',
         'PORT': '3306',
-        'CONN_MAX_AGE': None,
+        'CONN_MAX_AGE': 3600,
     },
     'OPTIONS': {
         'timeout':20,
