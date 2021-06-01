@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-u(4)_h6q*o+=t(#+ih$6v8e4p-ztgro-pk%8vki&*i1(h5p-nt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'devdoot.ekatta.in', 'www.devdoot.ekatta.in']
 
 
 # Application definition
@@ -106,7 +106,7 @@ DATABASES = {
         'NAME': 'devdoot',
         'USER': 'devdoot',
         'PASSWORD': 'wEVQu$tKKZpK',
-        'HOST': '184.168.96.38',
+        'HOST': 'localhost',
         'PORT': '3306',
         'CONN_MAX_AGE': 3600,
     },
