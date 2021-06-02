@@ -107,7 +107,7 @@ DATABASES = {
         'NAME': 'devdoot',
         'USER': 'devdoot',
         'PASSWORD': 'wEVQu$tKKZpK',
-        'HOST': 'localhost',
+        'HOST': 'local',
         'PORT': '3306',
         'CONN_MAX_AGE': 3600,
     },
@@ -118,7 +118,7 @@ DATABASES = {
     'local': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'init_command': 'SET default_storage_engine=INNODB, SET GLOBAL max_allowed_packet=67108864,',
+            'init_command': 'SET default_storage_engine=INNODB',
             'sql_mode': 'traditional',
         },
         'NAME': 'devdoot_201',

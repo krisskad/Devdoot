@@ -10,7 +10,6 @@ import json
 # Create your views here.
 @login_required(login_url='login')
 def dashboard_page(request):
-
     username = request.user
     anymnos = 1
 
@@ -33,9 +32,9 @@ def dashboard_page(request):
         total_solved = SolvedProblem.objects.filter(is_solved=1, solved_problem__in=problems_pk).count()
 
         context = {
-                   'username': username, 'pending_problems': pending_problems,
-                   'total_problem_count': total_problem_count,
-                   'total_solved': total_solved, 'pending_problems': pending_problems}
+            'username': username, 'pending_problems': pending_problems,
+            'total_problem_count': total_problem_count,
+            'total_solved': total_solved, 'pending_problems': pending_problems}
         return render(request, 'dashboard/dashboard.html', context)
     else:
         msg = "No Data Available"
@@ -48,22 +47,79 @@ def dashboard_page(request):
 
 @login_required(login_url='login')
 def profilePage(request):
+    if not request.user.is_anonymous:
+        if request.method == 'POST':
+            s_fn = request.POST.get('first_name')
+            s_ln = request.POST.get('last_name')
+            s_m = request.POST.get('mobile')
+            s_email = request.POST.get('email')
+            s_problems = request.POST.getlist('problemtypes[]')
+            s_gender = request.POST.get('gender')
 
-    username = request.user
+            # get all excludinng user_instance
+            user_instance = User.objects.get(id=request.user.id)
+            check = User.objects.all().exclude(id=request.user.id)
 
-    try:
-        detail = ExtendedUser.objects.get(user=username)
-    except ExtendedUser.DoesNotExist:
-        detail = "User Does not exist"
+            #username
+            if len(s_m) == 10:
+                try:
+                    check.get(username=s_m)
+                    messages.warning(request, 'Mobile number is already exist')
 
-    if detail != "User Does not exist":
-        first_name = request.user.first_name
-        last_name = request.user.last_name
-        email = request.user.email
-        state = detail.state
-        city = detail.city
-        address = detail.address
-        groupname = detail.group_name
+                except User.DoesNotExist:
+                    user_instance.username = s_m.replace(" ","")
+
+            #email
+            if s_email is not None:
+                if s_email != "":
+                    try:
+                        check.get(username=s_m)
+                        messages.warning(request, 'Mobile number is already exist')
+
+                    except User.DoesNotExist:
+                        user_instance.email = s_email.replace(" ","")
+                else:
+                    user_instance.email = request.user.email
+            else:
+                messages.warning(request, 'email field is empty')
+
+            try:
+                detail = ExtendedUser.objects.get(user=request.user)
+            except ExtendedUser.DoesNotExist:
+                detail = "User Does Not Exist"
+
+            print(s_fn, s_ln)
+
+            if s_fn is not None:
+                if s_fn == "":
+                    user_instance.first_name = request.user.first_name
+                else:
+                    user_instance.first_name = s_fn.replace(" ","")
+            else:
+                messages.warning(request, 'first name field is empty')
+
+            if s_ln is not None:
+                if s_ln == "":
+                    user_instance.last_name = request.user.last_name
+                else:
+                    user_instance.last_name = s_fn.replace(" ","")
+            else:
+                messages.warning(request, 'last name field is empty')
+
+            if len(s_problems) > 0 and detail != "User Does Not Exist":
+                s_problems = json.dumps(s_problems)
+                detail.problem_types = s_problems
+            if s_gender is not None and detail != "User Does Not Exist":
+                detail.gender = s_gender
+
+            user_instance.save()
+            detail.save()
+
+        try:
+            detail = ExtendedUser.objects.get(user=request.user)
+        except ExtendedUser.DoesNotExist:
+            detail = "User Does Not Exist"
+
         jsonDec = json.decoder.JSONDecoder()
         problems_temp = jsonDec.decode(detail.problem_types)
         problems_pk = []
@@ -76,67 +132,25 @@ def profilePage(request):
 
         all_problems = ProblemType.objects.all()
 
-        if request.method == 'POST':
+        context = {'first_name': request.user.first_name, 'last_name': request.user.last_name,
+                   'email': request.user.email, 'username': request.user, 'detail': detail,
+                   'state': detail.state, 'city': detail.city, 'address': detail.address, 'problems': problems,
+                   'all_problems': all_problems,
+                   'groupname': detail.group_name}
 
-            s_fn = request.POST.get('first_name')
-            s_ln = request.POST.get('last_name')
-            s_m = request.POST.get('mobile')
-            s_email = request.POST.get('email')
-            s_problems = request.POST.getlist('problemtypes[]')
-            s_gender = request.POST.get('gender')
-            user_instance = User.objects.get(id=request.user.id)
-            check = User.objects.all().exclude(id=request.user.id)
-            if len(s_m) != 10:
-                messages.info(request, 'Mobile number must be 10 digits long')
-            else:
-                try:
-                    check.get(username=s_m)
-                    messages.info(request, 'Mobile number is already exist')
-
-                except User.DoesNotExist:
-                    user_instance.username = s_m
-
-                try:
-                    check.get(email=s_email)
-                    messages.info(request, 'Email is already exist')
-
-                except User.DoesNotExist:
-                    user_instance.email = s_email
-
-                finally:
-                    if s_fn and s_ln and s_problems and s_gender:
-                        user_instance.first_name = s_fn
-                        user_instance.last_name = s_ln
-                        user_instance.save()
-
-                        detail.gender = s_gender
-                        if len(s_problems) > 0:
-                            s_problems = json.dumps(s_problems)
-                        else:
-                            s_problems = None
-                        detail.problem_types = s_problems
-                        detail.save()
-        context = {'first_name': first_name, 'last_name': last_name,
-                   'email': email, 'username': username, 'detail': detail,
-                   'state': state, 'city': city, 'address': address, 'problems': problems, 'all_problems':all_problems,
-                   'groupname': groupname}
-        close_old_connections()
-
-        return render(request, 'dashboard/profile.html', context)
     else:
         msg = "No Data Available"
         context = {'first_name': msg, 'last_name': msg,
-                   'email': msg, 'username': username, 'detail': msg,
-                   'state': msg, 'city': msg, 'address': msg, 'problems': msg, 'all_problems':msg,
+                   'email': msg, 'username': msg, 'detail': msg,
+                   'state': msg, 'city': msg, 'address': msg, 'problems': msg, 'all_problems': msg,
                    'groupname': msg}
         close_old_connections()
 
-        return render(request, 'dashboard/profile.html', context)
+    return render(request, 'dashboard/profile.html', context)
 
 
 @login_required(login_url='login')
 def requested_problems(request):
-
     username = request.user
     first_name = request.user.first_name
     last_name = request.user.last_name
@@ -175,7 +189,8 @@ def requested_problems(request):
     for i in problems_temp:
         problems_pk.append(int(i))
 
-    related_data = list(PublicProblem.objects.filter(city=city, problem_type__in=problems_pk).exclude(id__in=a).select_related().order_by('-timestamp'))
+    related_data = list(PublicProblem.objects.filter(city=city, problem_type__in=problems_pk).exclude(
+        id__in=a).select_related().order_by('-timestamp'))
 
     if request.method == 'POST':
         title = request.POST.get('report_options')
@@ -188,7 +203,7 @@ def requested_problems(request):
                                    reported_to=reported_to)
             report.save()
 
-    context = {'first_name': first_name, 'last_name': last_name, 'problems': related_data, 'all_problems':all_problems}
+    context = {'first_name': first_name, 'last_name': last_name, 'problems': related_data, 'all_problems': all_problems}
     close_old_connections()
 
     return render(request, 'dashboard/requestedproblem.html', context)
@@ -196,8 +211,8 @@ def requested_problems(request):
 
 @login_required(login_url='login')
 def solved_problems(request):
-
-    related_data = SolvedProblem.objects.filter(solved_by=request.user.id).prefetch_related('solved_by', 'solved_problem')
+    related_data = SolvedProblem.objects.filter(solved_by=request.user.id).prefetch_related('solved_by',
+                                                                                            'solved_problem')
     # all_problems = ProblemType.objects.all()
 
     # related_data[0].solved_by.user.get_full_name()
