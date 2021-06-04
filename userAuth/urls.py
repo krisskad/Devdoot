@@ -11,6 +11,7 @@ urlpatterns = [
     path('load-cities/', views.load_cities, name='ajax-load-cities'),
 
     url('validate_email/', views.validate_email, name='validate_email'),
+    path('reset_password_profile/', views.resetPage, name='reset_password_profile'),
     path('reset_password/',
          auth_views.PasswordResetView.as_view(template_name='login/reset_password.html'),
          name='reset_password'),

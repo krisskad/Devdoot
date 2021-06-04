@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from devdoot.models import ExtendedUser, ProblemReport, PublicProblem, Cities, SolvedProblem, ProblemType
@@ -102,7 +102,7 @@ def profilePage(request):
                 if s_ln == "":
                     user_instance.last_name = request.user.last_name
                 else:
-                    user_instance.last_name = s_fn.replace(" ","")
+                    user_instance.last_name = s_ln.replace(" ","")
             else:
                 messages.warning(request, 'last name field is empty')
 
@@ -115,6 +115,7 @@ def profilePage(request):
             user_instance.save()
             detail.save()
 
+        # Getting Details
         try:
             detail = ExtendedUser.objects.get(user=request.user)
         except ExtendedUser.DoesNotExist:
