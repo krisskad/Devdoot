@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'MAIN.wsgi.application'
 
 
 DATABASES = {
-    'default': {
+    'local': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
             'init_command': 'SET default_storage_engine=INNODB',
@@ -115,7 +115,7 @@ DATABASES = {
         'timeout':20,
         },
 
-    'local': {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
             'init_command': 'SET default_storage_engine=INNODB',
@@ -194,3 +194,11 @@ INTERNAL_IPS = [
     #'127.0.0.1',
     # ...
 ]
+
+#SMTP Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'devdoot.ekatta@gmail.com'
+EMAIL_HOST_PASSWORD = 'Abc@1234'
