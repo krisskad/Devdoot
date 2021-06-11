@@ -116,18 +116,18 @@ DATABASES = {
         'timeout':20,
         },
 
-    'local': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'init_command': 'SET default_storage_engine=INNODB',
-            'sql_mode': 'traditional',
-        },
-        'NAME': 'devdoot_201',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
+    # 'local': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'OPTIONS': {
+    #         'init_command': 'SET default_storage_engine=INNODB',
+    #         'sql_mode': 'traditional',
+    #     },
+    #     'NAME': 'devdoot_201',
+    #     'USER': 'root',
+    #     'PASSWORD': '',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306',
+    # }
 }
 
 pymysql.version_info = (1,4,2,"final",0)
