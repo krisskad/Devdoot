@@ -108,7 +108,7 @@ DATABASES = {
         'NAME': 'devdoot',
         'USER': 'devdoot',
         'PASSWORD': 'wEVQu$tKKZpK',
-        'HOST': 'local',
+        'HOST': 'localhost',
         'PORT': '3306',
         'CONN_MAX_AGE': 3600,
     },
