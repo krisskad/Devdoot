@@ -108,7 +108,7 @@ DATABASES = {
         'NAME': 'devdoot',
         'USER': 'devdoot',
         'PASSWORD': 'wEVQu$tKKZpK',
-        'HOST': 'localhost',
+        'HOST': 'local',
         'PORT': '3306',
         'CONN_MAX_AGE': 3600,
     },
@@ -119,7 +119,7 @@ DATABASES = {
     'local': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'init_command': 'SET default_storage_engine=INNODB, SET GLOBAL max_allowed_packet=67108864,',
+            'init_command': 'SET default_storage_engine=INNODB',
             'sql_mode': 'traditional',
         },
         'NAME': 'devdoot_201',
@@ -195,3 +195,11 @@ INTERNAL_IPS = [
     #'127.0.0.1',
     # ...
 ]
+
+#SMTP Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'devdoot.ekatta@gmail.com'
+EMAIL_HOST_PASSWORD = 'Abc@1234'

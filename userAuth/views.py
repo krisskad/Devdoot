@@ -8,16 +8,25 @@ import json
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db import close_old_connections
+from django.http import JsonResponse
 
-
-# from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Create your views here.
+@csrf_exempt
+def validate_email(request):
+    """Check username availability"""
+    email = request.GET.get('email', None)
+    response = {
+        'is_taken': User.objects.filter(email=email).exists()
+    }
+    print(email, response)
+    return JsonResponse(response)
+
 
 def loginPage(request):
     if request.user.is_authenticated:
@@ -29,6 +38,7 @@ def loginPage(request):
 
             user = authenticate(request, username=username, password=password)
             # print(username, password, user, request.POST)
+
             if user is not None:
                 login(request, user)
                 return redirect('dashboard')
@@ -136,11 +146,6 @@ def load_cities(request):
     close_old_connections()
 
     return render(request, 'login/cities.html', {'cities': cities})
-
-
-def forgotPage(request):
-    context = {}
-    return render(request, 'forgot.html', context)
 
 
 @login_required(login_url='login')

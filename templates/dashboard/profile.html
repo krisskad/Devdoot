@@ -49,7 +49,7 @@
                     </li>
                     <li class="nav-item">
                         <a aria-controls="profile" aria-selected="false" class="nav-link"
-                           href="{% url 'reset_password' %}"
+                           href="{% url 'reset_password_profile' %}"
                            id="profile-tab" role="tab">Security</a>
                     </li>
                 </ul>
@@ -82,20 +82,20 @@
                                         <label>Address</label>
 
                                         <input class="form-control " disabled id="exampleInputAddress" name="address"
-                                               placeholder="Address" type="text" value="{{address}}">
+                                               placeholder="Address" type="text" value="{{detail.address}}">
                                     </div>
                                     <div class="form-group row">
                                         <div class="form-group col-sm-6 mb-3 mb-sm-0">
                                             <label>First Name</label>
 
                                             <input class="form-control " disabled id="exampleInputFName"
-                                                   name="first_name" placeholder="{{first_name}}" type="text">
+                                                   name="first_name" placeholder="{{request.user.first_name}}" type="text">
                                         </div>
                                         <div class="form-group col-sm-6">
                                             <label>Last Name</label>
 
                                             <input class="form-control " disabled id="exampleInputLName"
-                                                   name="last_name" placeholder="{{last_name}}" type="text">
+                                                   name="last_name" placeholder="{{request.user.last_name}}" type="text">
                                         </div>
 
                                     </div>
@@ -104,19 +104,19 @@
                                         <label>Mobile</label>
 
                                         <input class="form-control " disabled id="exampleInputMobile"
-                                               name="mobile" placeholder="{{username}}" type="text">
+                                               name="mobile" placeholder="{{request.user}}" type="text">
                                     </div>
                                     <div class="form-group">
                                         <label>Email</label>
                                         <input class="form-control " disabled id="exampleInputEmail1" name="email"
-                                               placeholder="{{email}}" type="email">
+                                               placeholder="{{request.user.email}}" type="email">
                                     </div>
                                     <div class="form-group">
                                         <label>Selected Problems</label>
                                         <select class="col-12 form-control" disabled id="demo" multiple
                                                 name="problemtypes[]">
                                             {%for problemd in problems%}
-                                            <option selected value="{{problemd}}">{{problemd}}</option>
+                                            <option selected value="{{problemd.pk}}">{{problemd}}</option>
                                             {%endfor%}
 
                                         </select>
@@ -160,6 +160,16 @@
 
                                     <hr>
                                 </form>
+                                {% for message in messages %}
+                                    {% if 'warning' in message.tags %}
+                                    <div class="alert alert-info">
+                                        <a class="close" data-dismiss="alert" href="#">×</a>
+
+                                        {{ message }}
+
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
 
                         </div>
