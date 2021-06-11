@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'MAIN.wsgi.application'
 
 
 DATABASES = {
-    'local': {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
             'init_command': 'SET default_storage_engine=INNODB',
@@ -116,7 +116,7 @@ DATABASES = {
         'timeout':20,
         },
 
-    'default': {
+    'local': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
             'init_command': 'SET default_storage_engine=INNODB',
