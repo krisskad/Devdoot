@@ -112,7 +112,7 @@ DATABASES = {
         'PASSWORD': 'wEVQu$tKKZpK',
         'HOST': 'localhost',
         'PORT': '3306',
-        'CONN_MAX_AGE': 500,
+        'CONN_MAX_AGE': 3600,
     },
     'OPTIONS': {
         'timeout':20,
