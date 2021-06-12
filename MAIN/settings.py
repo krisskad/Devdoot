@@ -205,8 +205,8 @@ INTERNAL_IPS = [
 # EMAIL_HOST_PASSWORD = 'Abc@1234'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'sg2plzcpnl471122.prod.sin2.secureserver.net'
-EMAIL_PORT = 465
-EMAIL_USE_TLS = True
+EMAIL_HOST = 'mail.devdoot.ekatta.in'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = False
 EMAIL_HOST_USER = 'devdoot@devdoot.ekatta.in'
 EMAIL_HOST_PASSWORD = 'G-A09J%F598D'
