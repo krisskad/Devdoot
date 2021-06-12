@@ -97,6 +97,8 @@ WSGI_APPLICATION = 'MAIN.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+pymysql.version_info = (1,4,2,"final",0)
+pymysql.install_as_MySQLdb()
 
 DATABASES = {
     'default': {
@@ -110,7 +112,7 @@ DATABASES = {
         'PASSWORD': 'wEVQu$tKKZpK',
         'HOST': 'localhost',
         'PORT': '3306',
-        'CONN_MAX_AGE': 3600,
+        'CONN_MAX_AGE': 500,
     },
     'OPTIONS': {
         'timeout':20,
@@ -130,8 +132,6 @@ DATABASES = {
     # }
 }
 
-pymysql.version_info = (1,4,2,"final",0)
-pymysql.install_as_MySQLdb()
 
 
 # Password validation
