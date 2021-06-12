@@ -8,3 +8,11 @@ python manage.py loaddata devdoot/fixtures/cities_data.json --app devdoot.Cities
 python manage.py loaddata devdoot/fixtures/problemtypes_data.json --app devdoot.ProblemTypes
 
 
+
+12-06-2021
+dont allow user to send otp on registered mobile number --account creation
+allow user to edit state and city -- profile page
+disabled username means mobile number -- profile page
+make problem selector as important field --account creation
+
+
