@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-u(4)_h6q*o+=t(#+ih$6v8e4p-ztgro-pk%8vki&*i1(h5p-nt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = ['*', 'devdoot.ekatta.in', 'www.devdoot.ekatta.in']
