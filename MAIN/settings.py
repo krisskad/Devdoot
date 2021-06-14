@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-import pymysql
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -97,8 +96,7 @@ WSGI_APPLICATION = 'MAIN.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-pymysql.version_info = (1,4,2,"final",0)
-pymysql.install_as_MySQLdb()
+
 
 DATABASES = {
     'default': {
@@ -188,7 +186,8 @@ TEMPLATE_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR
-STATIC_ROOT = os.path.join(BASE_DIR, 'resources', 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'resources', 'static')
+STATIC_ROOT = "/home/wztt7rb0buz8/etc/devdoot.ekatta.in/static/"
 
 INTERNAL_IPS = [
     # ...
